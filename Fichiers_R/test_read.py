@@ -1,0 +1,17 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Jan 20 15:36:52 2015
+
+@author: Alexis Eidelman
+"""
+
+import os
+import pandas as pd
+
+path = 'D:\data\health\Damir\Fichier R'
+
+# TODO: faire bien mieux sur les dates.
+for year in range(2010, 2015):
+    for month in ['0' + str(x) for x in range(1,10)] + ['10', '11', '12']:
+        file_name = os.path.join(path, 'R' + str(year) + month + '.csv')
+        print pd.read_csv(file_name, sep=';', nrows=10)

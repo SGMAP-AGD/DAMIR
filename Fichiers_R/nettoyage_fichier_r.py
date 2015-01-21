@@ -44,9 +44,12 @@ def remove_redondant_columns(read_path, write_path, drop=None, keep_label_more_t
             table_reduced = table.drop(cols_with_label, axis=1)
         else:
             table_reduced = table.drop(labels, axis=1)
+
         if drop is not None:
             table_reduced.drop(drop, axis=1, inplace=True)
-        table_reduced.to_csv(file_write, sep=';')
+
+        table_reduced.to_csv(file_write, sep=';', index = False)
+
 
 
 def var_is_aggregation_of_an_other(read_path, var1, var2):

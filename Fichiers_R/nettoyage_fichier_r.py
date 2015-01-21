@@ -16,7 +16,7 @@ import os
 import pandas as pd
 
 
-def remove_redondant_columns(read_path, write_path, keep_label_more_than_num=False):
+def remove_redondant_columns(read_path, write_path, drop=None, keep_label_more_than_num=False):
     assert read_path != write_path
 
     fichiers_R = [f for f in os.listdir(read_path)
@@ -27,6 +27,8 @@ def remove_redondant_columns(read_path, write_path, keep_label_more_than_num=Fal
         file_read = os.path.join(read_path, file_to_read)
         file_write = os.path.join(write_path, file_to_read)
         table = pd.read_csv(file_read, sep=';')
+        if drop is not None:
+            table.drop(drop, axis=1, inplace=True)
         table.rename(columns={'SERIE': 'serie'}, inplace=True)
         cols = table.columns
         cols_with_label = [col for col in cols if 'l_' + col in cols]

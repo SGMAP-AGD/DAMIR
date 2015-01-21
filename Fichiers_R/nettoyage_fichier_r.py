@@ -35,9 +35,9 @@ def remove_redondant_columns(read_path, write_path, keep_label_more_than_num=Fal
             table_reduced = table.drop(cols_with_label, axis=1)
         else:
             table_reduced = table.drop(labels, axis=1)
-        table_reduced.to_csv(file_write, sep=';')
+        table_reduced.to_csv(file_write, sep=';', index = False)
 
 
 if __name__ == '__main__':
-    write_path = 'D:/data/health/Damir/fichier R/remove_lab'
+    write_path = '/home/debian/Documents/data/damir/DAMIR_R'
     remove_redondant_columns(read_path, write_path, keep_label_more_than_num=False)

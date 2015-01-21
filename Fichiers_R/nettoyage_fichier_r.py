@@ -17,6 +17,13 @@ import pandas as pd
 
 
 def remove_redondant_columns(read_path, write_path, drop=None, keep_label_more_than_num=False):
+    ''' prend les fichiers R bruts et les simplifie:
+        - read_path : là où sont les fichier
+        - write_path : là où on veut les sauvegarder
+        - drop : colonne que l'on veut reitirer
+        - keep_label_more_than_num: pour savoir si on retire les label ou les numéros de modalités
+    '''
+
     assert read_path != write_path
 
     fichiers_R = [f for f in os.listdir(read_path)

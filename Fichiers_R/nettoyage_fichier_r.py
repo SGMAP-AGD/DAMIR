@@ -52,6 +52,21 @@ def var_is_aggregation_of_an_other(read_path, var1, var2):
     cpam_by_dep.to_csv(file_name, index=False)
 
 
+def to_one_file(path):
+    fichiers_R = [f for f in os.listdir(path)
+                  if f[:3] == 'R20' and f[-4:] == '.CSV' and len(f) == 11]
+
+    outfile = os.path.join(path, 'Fichier_R.csv')
+    output = pd.DataFrame()
+    # TODO: faire le dump directement plutôt que de tout charger
+    for file_to_read in fichiers_R[:2]:
+        table = pd.read_csv(os.path.join(path, file_to_read), sep=';')
+        output = output.append(table)
+
+    output.to_csv(outfile)
+
+
+
 if __name__ == '__main__':
     write_path = 'D:/data/health/Damir/fichier R/remove_lab'
     remove_redondant_columns(read_path, write_path, keep_label_more_than_num=False)

@@ -10,6 +10,8 @@ Ils doivent se trouver dans le dossier : read_path
 Les nouveaux fichiers seront créés dans: write_path
 ######################################################################
 """
+
+from DAMIR_CONFIG import nettoyage_fichier_R_1_path as read_path
 import os
 import pandas as pd
 
@@ -37,6 +39,5 @@ def remove_redondant_columns(read_path, write_path, keep_label_more_than_num=Fal
 
 
 if __name__ == '__main__':
-    read_path = 'D:/data/health/Damir/fichier R'
     write_path = 'D:/data/health/Damir/fichier R/remove_lab'
     remove_redondant_columns(read_path, write_path, keep_label_more_than_num=False)

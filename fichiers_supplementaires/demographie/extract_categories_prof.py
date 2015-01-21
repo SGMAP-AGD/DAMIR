@@ -14,7 +14,6 @@ Ce script crée un CSV  à partir du fichier :
 """
 
 ########### Paramètres ci-dessous
-read_path = '/home/debian/Documents/data/damir'
 write_path = '/home/debian/Documents/data/damir'
 file_to_extract = 'base-ic-evol-struct-pop-2011.xls'
 return_csv_name_emploi = 'professions_par_departement.csv'
@@ -23,6 +22,7 @@ csv_sep = ';'
 ########### Fin des paramètres
 
 ########### Script ci dessous
+from DAMIR_CONFIG import cat_soc_prof_1_path as read_path
 import pandas as pd
 from os.path import join
 

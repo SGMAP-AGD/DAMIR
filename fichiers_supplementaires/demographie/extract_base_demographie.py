@@ -14,11 +14,7 @@ Ce script crée un CSV unique à partir du fichier :
 #####################################################################################################
 """
 
-
-
-
 ########### Paramètres ci-dessous
-read_path = '/home/debian/Documents/data/damir'
 write_path = '/home/debian/Documents/data/damir'
 file_to_extract = 'pop_par_dep_par_an.xls'
 return_csv_name = 'pop_par_dep_par_an_regroupe.csv'
@@ -30,7 +26,7 @@ an_fin = 2014
 
 
 ########### Script ci dessous
-
+from DAMIR_CONFIG import demographie_1_path as read_path
 import pandas as pd
 from os.path import join
 

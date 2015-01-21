@@ -38,6 +38,24 @@ def remove_redondant_columns(read_path, write_path, keep_label_more_than_num=Fal
         table_reduced.to_csv(file_write, sep=';')
 
 
+def var_is_aggregation_of_an_other(read_path, var1, var2):
+    ''' renvoie un dictionnaire avec pour chaque département
+        la liste des CPAM qu'il contient '''
+    fichier_R = [f for f in os.listdir(read_path)
+                 if f[:3] == 'R20' and f[-4:] == '.CSV' and len(f) == 11][0]
+    file_read = os.path.join(read_path, fichier_R)
+    tab = pd.read_csv(file_read, sep=';')
+    cpam_by_dep = tab[[var1, var2]].drop_duplicates([var1, var2])
+    assert cpam_by_dep[var2].value_counts().max() == 1
+    print 'on a bien ' + var2 + ' dans ' + var1
+    file_name = os.path.join(read_path, 'cpam_by_dep.csv')
+    cpam_by_dep.to_csv(file_name, index=False)
+
+
 if __name__ == '__main__':
     write_path = 'D:/data/health/Damir/fichier R/remove_lab'
     remove_redondant_columns(read_path, write_path, keep_label_more_than_num=False)
+    var_is_aggregation_of_an_other(write_path, 'dpt', 'cpam')
+    var_is_aggregation_of_an_other(write_path, 'region', 'cpam')
+    var_is_aggregation_of_an_other(write_path, 'region', 'dpt')
+

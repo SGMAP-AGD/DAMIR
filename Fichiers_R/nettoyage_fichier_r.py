@@ -10,33 +10,33 @@ Ils doivent se trouver dans le dossier : read_path
 Les nouveaux fichiers seront créés dans: write_path
 ######################################################################
 """
-
-import pandas as pd
 import os
-
-########### Paramètres ci-dessous
-prefix = 'reduced_' # prefixe à rajouter au nom de l'ancien fichier
-read_path = '/home/debian/Documents/data/damir/DAMIR_R'
-write_path = '/home/debian/Documents/data/damir/DAMIR_R'
-########### Fin des paramètres
+import pandas as pd
 
 
-########### Script ci dessous
-all_files = [f for f in os.listdir(read_path)
-                if f[:3] == 'R20' & f[-4:] == '.CSV' & len(f) == 11]
+def remove_redondant_columns(read_path, write_path, keep_label_more_than_num=False):
+    assert read_path != write_path
 
-counter = 0
-for file_to_read in all_files:
-    print 'Currently re-writing : ', file_to_read, ' ...'
-    file_read = os.path.join(read_path, file_to_read)
-    file_write = os.path.join(write_path, prefix + file_to_read)
-    table = pd.read_csv(file_read, sep = ';')
-    columns = table.columns
-    columns_to_keep = [col_name for col_name in columns if not (('l_' + col_name) in columns) or col_name == 'cpam']
-    table_reduced = table[columns_to_keep]
-    table_reduced.to_csv(file_write, sep = ';')
-    counter += 1
-print counter, 'fichiers ont été réécrits'
-#except:
-#    print 'Une erreur est survenue'
-########### Fin du script
+    fichiers_R = [f for f in os.listdir(read_path)
+                  if f[:3] == 'R20' and f[-4:] == '.CSV' and len(f) == 11]
+
+    for file_to_read in fichiers_R:
+        print 'Currently re-writing : ', file_to_read, ' ...'
+        file_read = os.path.join(read_path, file_to_read)
+        file_write = os.path.join(write_path, file_to_read)
+        table = pd.read_csv(file_read, sep=';')
+        table.rename(columns={'SERIE': 'serie'}, inplace=True)
+        cols = table.columns
+        cols_with_label = [col for col in cols if 'l_' + col in cols]
+        labels = ['l_' + col for col in cols_with_label]
+        if keep_label_more_than_num:
+            table_reduced = table.drop(cols_with_label, axis=1)
+        else:
+            table_reduced = table.drop(labels, axis=1)
+        table_reduced.to_csv(file_write, sep=';')
+
+
+if __name__ == '__main__':
+    read_path = 'D:/data/health/Damir/fichier R'
+    write_path = 'D:/data/health/Damir/fichier R/remove_lab'
+    remove_redondant_columns(read_path, write_path, keep_label_more_than_num=False)

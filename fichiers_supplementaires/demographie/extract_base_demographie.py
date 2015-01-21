@@ -10,7 +10,7 @@ Ce script crée un CSV unique à partir du fichier :
     
     Disponible sur :
     http://www.insee.fr/fr/themes/detail.asp?reg_id=99&ref_id=estim-pop
-    href="/fr/ppp/bases-de-donnees/donnees-detaillees/estim-pop/estim-pop-dep-sexe-aq-1975-2014.xls
+    http://www.insee.fr/fr/ppp/bases-de-donnees/donnees-detaillees/estim-pop/estim-pop-dep-sexe-aq-1975-2014.xls
 #####################################################################################################
 """
 
@@ -50,9 +50,20 @@ try:
         table = table[table.l_dep.notnull()]
         table_globale = table_globale.append(table)
         
-    table_globale.sort('l_dep', inplace = True)
+
+ 
+    table_globale = pd.melt(table_globale, id_vars = ['dep', 'l_dep', 'annee'])
+    table_globale['sexe'] = table_globale['variable'].apply(lambda x: x[0])
+    table_globale['age_max_cat'] = table_globale['variable'].str.split('_').apply(lambda x: x[-1])
+    table_globale.drop('variable', axis = 1, inplace = True)
+    
+    columns = list(table_globale.columns[:3]) + list(table_globale.columns[4:]) + [table_globale.columns[3]]
+    table_globale = table_globale[columns]
+    table_globale.sort(['l_dep', 'annee'], inplace = True)
+    
     file_to_write = join(write_path, return_csv_name)
     table_globale.to_csv(file_to_write, sep = csv_sep, index = False)
+    
     print 'Le nouveau fichier a été créé dans :', write_path
 except:
     print 'Une erreur est survenue'

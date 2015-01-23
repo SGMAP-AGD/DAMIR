@@ -1,0 +1,11 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jan 21 15:11:11 2015
+
+@author: debian
+"""
+
+demographie_1_path = '/home/debian/Documents/data/damir'
+cat_soc_prof_1_path = '/home/debian/Documents/data/damir'
+nettoyage_fichier_R_1_path = '/home/debian/Documents/data/damir/DAMIR_R'
+DAMIR_P = '/home/debian/Documents/data/damir/DAMIR_P'

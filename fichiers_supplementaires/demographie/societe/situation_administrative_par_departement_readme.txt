@@ -1,0 +1,5 @@
+P11_POP_FR : Pop Français en 2011 (princ)
+P11_POP_ETR : Pop Etrangers en 2011 (princ)
+P11_POP_IMM : Pop Immigrés en 2011 (princ) 
+P11_PMEN : Pop ménages en 2011 (princ)
+P11_PHORMEN : Pop hors ménages en 2011 (princ) 

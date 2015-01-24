@@ -9,4 +9,4 @@ Les variables sont :
 * ensoleillement : temps d'ensoleillement par jour (en h)
 * precipitations : precipitations par jour (en mm)
 
-Ces données peuvent être vérifiées (à la main) sur [le site de Météo France](http://www.meteofrance.com/climat/meteo-date-passee).
+Ces données peuvent être vérifiées (une par une) sur [le site de Météo France](http://www.meteofrance.com/climat/meteo-date-passee).
